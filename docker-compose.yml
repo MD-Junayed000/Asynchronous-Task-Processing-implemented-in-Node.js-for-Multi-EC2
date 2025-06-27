@@ -8,8 +8,8 @@ services:
     ports:
       - "5000:5000"
     environment:
-      RABBIT_URL: amqp://rabbitmq:5672
-      REDIS_URL: redis://redis:6379
+      RABBIT_URL: ${RABBIT_URL}
+      REDIS_URL: ${REDIS_URL}
     depends_on:
       - rabbitmq
       - redis
@@ -20,8 +20,8 @@ services:
     command: npm run worker
     #scale: 3
     environment:
-      RABBIT_URL: amqp://rabbitmq:5672
-      REDIS_URL: redis://redis:6379
+      RABBIT_URL: ${RABBIT_URL}
+      REDIS_URL: ${REDIS_URL}
     depends_on:
       - rabbitmq
       - redis
@@ -48,6 +48,6 @@ services:
       - "8081:8081"
     environment:
       REDIS_HOSTS: |
-        local:redis:6379
+        local:${REDIS_URL#redis://}
     depends_on:
       - redis
