@@ -1,0 +1,53 @@
+version: "3.8"
+
+services:
+  api:
+    build: .
+    profiles: ["api"]
+    command: npm start
+    ports:
+      - "5000:5000"
+    environment:
+      RABBIT_URL: amqp://rabbitmq:5672
+      REDIS_URL: redis://redis:6379
+    depends_on:
+      - rabbitmq
+      - redis
+
+  worker:
+    build: .
+    profiles: ["worker"]
+    command: npm run worker
+    #scale: 3
+    environment:
+      RABBIT_URL: amqp://rabbitmq:5672
+      REDIS_URL: redis://redis:6379
+    depends_on:
+      - rabbitmq
+      - redis
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    profiles: ["rabbitmq"]
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  redis:
+    image: redis:7
+    profiles: ["redis"]
+    ports:
+      - "6379:6379"
+
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: redis-commander
+    profiles: ["redis"]
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
+    environment:
+      REDIS_HOSTS: |
+        local:redis:6379
+    depends_on:
+      - redis

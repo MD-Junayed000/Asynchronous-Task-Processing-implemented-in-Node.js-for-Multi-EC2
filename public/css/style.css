@@ -1,0 +1,39 @@
+body {
+  background-image: url("./background.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.task-card {
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1.5rem;
+}
+
+.email-task {
+  background: #007bff;
+  color: white;
+}
+
+.reverse-task {
+  background: #ffc107;
+}
+
+.sentiment-task {
+  background: #17c6eb;
+}
+
+.task-header {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.btn-custom {
+  width: 100%;
+  font-weight: bold;
+}
